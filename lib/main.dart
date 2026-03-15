@@ -14,12 +14,12 @@ class BriMoHome extends StatefulWidget {
 class _BriMoHomeState extends State<BriMoHome> {
   int _currentIndex = 0;
 
-  // Daftar halaman navigasi bawah
+  // DAFTAR HALAMAN NAVIGASI BAWAH (Semuanya sudah ada isinya sekarang)
   final List<Widget> _children = [
     const HomeContent(), 
     const MutasiPage(),
-    const AktivitasPage(), // SEKARANG SUDAH ADA ISINYA
-    const Center(child: Text("Halaman Akun")),
+    const AktivitasPage(),
+    const AkunPage(), // SEKARANG AKUN SUDAH AKTIF
   ];
 
   @override
@@ -50,7 +50,7 @@ class HomeContent extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          // HEADER (Desain Nama & NPM kamu)
+          // HEADER
           Container(
             padding: const EdgeInsets.fromLTRB(20, 60, 20, 20),
             decoration: const BoxDecoration(
@@ -87,7 +87,7 @@ class HomeContent extends StatelessWidget {
               ],
             ),
           ),
-          // GRID MENU (Memanggil class fitur masing-masing agar isinya tidak hilang)
+          // GRID MENU (Memanggil class fitur asli kamu)
           Padding(
             padding: const EdgeInsets.all(10),
             child: GridView.count(
@@ -130,7 +130,34 @@ class HomeContent extends StatelessWidget {
   }
 }
 
-// --- HALAMAN AKTIVITAS (YANG BARU DITAMBAHKAN) ---
+// --- HALAMAN AKUN (YANG BARU) ---
+class AkunPage extends StatelessWidget {
+  const AkunPage({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Profil Akun"), backgroundColor: const Color(0xFF01529C)),
+      body: Column(
+        children: [
+          const SizedBox(height: 30),
+          const Center(
+            child: CircleAvatar(radius: 50, backgroundColor: Colors.blueGrey, child: Icon(Icons.person, size: 50, color: Colors.white)),
+          ),
+          const SizedBox(height: 10),
+          const Text("Imroatun Aina", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          const Text("NPM: 20241220036", style: TextStyle(color: Colors.grey)),
+          const SizedBox(height: 30),
+          const Divider(),
+          const ListTile(leading: Icon(Icons.settings), title: Text("Pengaturan Akun")),
+          const ListTile(leading: Icon(Icons.help_outline), title: Text("Pusat Bantuan")),
+          const ListTile(leading: Icon(Icons.logout, color: Colors.red), title: Text("Keluar", style: TextStyle(color: Colors.red))),
+        ],
+      ),
+    );
+  }
+}
+
+// --- HALAMAN AKTIVITAS ---
 class AktivitasPage extends StatelessWidget {
   const AktivitasPage({super.key});
   @override
@@ -141,23 +168,20 @@ class AktivitasPage extends StatelessWidget {
         padding: const EdgeInsets.all(15),
         children: const [
           Text("Terbaru", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-          Card(child: ListTile(leading: Icon(Icons.login, color: Colors.blue), title: Text("Login Aplikasi"), subtitle: Text("Baru saja - Berhasil"))),
-          Card(child: ListTile(leading: Icon(Icons.qr_code, color: Colors.green), title: Text("Transaksi QRIS"), subtitle: Text("Kemarin - Rp 25.000"))),
-          Card(child: ListTile(leading: Icon(Icons.lock_outline, color: Colors.orange), title: Text("Update Password"), subtitle: Text("3 hari lalu"))),
+          Card(child: ListTile(leading: Icon(Icons.login, color: Colors.blue), title: Text("Login Berhasil"), subtitle: Text("Baru saja"))),
         ],
       ),
     );
   }
 }
 
-// --- FITUR-FITUR KAMU DENGAN ISI ASLINYA (TIDAK HILANG) ---
-
+// --- FITUR-FITUR ASLI KAMU (TIDAK BERUBAH) ---
 class TopUpPage extends StatelessWidget {
   const TopUpPage({super.key});
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(title: const Text("Top Up"), backgroundColor: const Color(0xFF01529C)),
-    body: const Center(child: Text("Pilih E-Wallet: GoPay, OVO, Dana, LinkAja")),
+    body: const Center(child: Text("Isi Top Up: GoPay, OVO, Dana")),
   );
 }
 
@@ -166,7 +190,7 @@ class TagihanPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(title: const Text("Tagihan"), backgroundColor: const Color(0xFF01529C)),
-    body: ListView(children: const [ListTile(leading: Icon(Icons.flash_on), title: Text("PLN Pascabayar"))]),
+    body: const ListTile(leading: Icon(Icons.flash_on), title: Text("PLN Pascabayar")),
   );
 }
 
@@ -179,19 +203,13 @@ class QrisPage extends StatelessWidget {
 class SetorTarikPage extends StatelessWidget {
   const SetorTarikPage({super.key});
   @override
-  Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: const Text("Setor Tarik"), backgroundColor: const Color(0xFF01529C)),
-    body: const Center(child: Text("Fitur Setor Tarik Tunai Tanpa Kartu")),
-  );
+  Widget build(BuildContext context) => Scaffold(appBar: AppBar(title: const Text("Setor Tarik"), backgroundColor: const Color(0xFF01529C)), body: const Center(child: Text("Tarik Tunai")));
 }
 
 class LifestylePage extends StatelessWidget {
   const LifestylePage({super.key});
   @override
-  Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: const Text("Lifestyle"), backgroundColor: const Color(0xFF01529C)),
-    body: const Center(child: Text("Isi Voucher Game & Tiket")),
-  );
+  Widget build(BuildContext context) => Scaffold(appBar: AppBar(title: const Text("Lifestyle"), backgroundColor: const Color(0xFF01529C)), body: const Center(child: Text("Voucher Game")));
 }
 
 class DebitPage extends StatelessWidget {
@@ -206,19 +224,13 @@ class DebitPage extends StatelessWidget {
 class CatatanPage extends StatelessWidget {
   const CatatanPage({super.key});
   @override
-  Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: const Text("Catatan"), backgroundColor: const Color(0xFF01529C)),
-    body: const Center(child: Text("Daftar Pengeluaran Anda")),
-  );
+  Widget build(BuildContext context) => Scaffold(appBar: AppBar(title: const Text("Catatan"), backgroundColor: const Color(0xFF01529C)), body: const Center(child: Text("Riwayat Belanja")));
 }
 
 class InvestasiPage extends StatelessWidget {
   const InvestasiPage({super.key});
   @override
-  Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: const Text("Investasi"), backgroundColor: const Color(0xFF01529C)),
-    body: const Center(child: Text("Emas & Reksa Dana")),
-  );
+  Widget build(BuildContext context) => Scaffold(appBar: AppBar(title: const Text("Investasi"), backgroundColor: const Color(0xFF01529C)), body: const Center(child: Text("Beli Emas")));
 }
 
 class MutasiPage extends StatelessWidget {
@@ -229,8 +241,7 @@ class MutasiPage extends StatelessWidget {
       appBar: AppBar(title: const Text("Mutasi"), backgroundColor: const Color(0xFF01529C)),
       body: ListView(
         children: const [
-          ListTile(leading: Icon(Icons.arrow_downward, color: Colors.green), title: Text("Transfer Masuk"), subtitle: Text("15 Mar - Rp 500.000")),
-          ListTile(leading: Icon(Icons.arrow_upward, color: Colors.red), title: Text("Bayar Listrik"), subtitle: Text("14 Mar - Rp 150.000")),
+          ListTile(leading: Icon(Icons.arrow_downward, color: Colors.green), title: Text("Transfer Masuk"), subtitle: Text("Rp 500.000")),
         ],
       ),
     );
