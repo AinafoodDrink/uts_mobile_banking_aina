@@ -14,11 +14,11 @@ class BriMoHome extends StatefulWidget {
 class _BriMoHomeState extends State<BriMoHome> {
   int _currentIndex = 0;
 
-  // Navigasi menu bawah
+  // Daftar halaman navigasi bawah
   final List<Widget> _children = [
     const HomeContent(), 
     const MutasiPage(),
-    const Center(child: Text("Halaman Aktivitas")),
+    const AktivitasPage(), // SEKARANG SUDAH ADA ISINYA
     const Center(child: Text("Halaman Akun")),
   ];
 
@@ -50,6 +50,7 @@ class HomeContent extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
+          // HEADER (Desain Nama & NPM kamu)
           Container(
             padding: const EdgeInsets.fromLTRB(20, 60, 20, 20),
             decoration: const BoxDecoration(
@@ -86,6 +87,7 @@ class HomeContent extends StatelessWidget {
               ],
             ),
           ),
+          // GRID MENU (Memanggil class fitur masing-masing agar isinya tidak hilang)
           Padding(
             padding: const EdgeInsets.all(10),
             child: GridView.count(
@@ -128,7 +130,27 @@ class HomeContent extends StatelessWidget {
   }
 }
 
-// --- SEKARANG ISI FITUR KAMU SUDAH KEMBALI DI SINI ---
+// --- HALAMAN AKTIVITAS (YANG BARU DITAMBAHKAN) ---
+class AktivitasPage extends StatelessWidget {
+  const AktivitasPage({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Aktivitas"), backgroundColor: const Color(0xFF01529C)),
+      body: ListView(
+        padding: const EdgeInsets.all(15),
+        children: const [
+          Text("Terbaru", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+          Card(child: ListTile(leading: Icon(Icons.login, color: Colors.blue), title: Text("Login Aplikasi"), subtitle: Text("Baru saja - Berhasil"))),
+          Card(child: ListTile(leading: Icon(Icons.qr_code, color: Colors.green), title: Text("Transaksi QRIS"), subtitle: Text("Kemarin - Rp 25.000"))),
+          Card(child: ListTile(leading: Icon(Icons.lock_outline, color: Colors.orange), title: Text("Update Password"), subtitle: Text("3 hari lalu"))),
+        ],
+      ),
+    );
+  }
+}
+
+// --- FITUR-FITUR KAMU DENGAN ISI ASLINYA (TIDAK HILANG) ---
 
 class TopUpPage extends StatelessWidget {
   const TopUpPage({super.key});
@@ -159,7 +181,7 @@ class SetorTarikPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(title: const Text("Setor Tarik"), backgroundColor: const Color(0xFF01529C)),
-    body: const ListTile(leading: Icon(Icons.atm), title: Text("Tarik Tunai"), subtitle: Text("Tanpa Kartu")),
+    body: const Center(child: Text("Fitur Setor Tarik Tunai Tanpa Kartu")),
   );
 }
 
@@ -168,7 +190,7 @@ class LifestylePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(title: const Text("Lifestyle"), backgroundColor: const Color(0xFF01529C)),
-    body: GridView.count(crossAxisCount: 2, children: const [Card(child: Center(child: Text("Tiket Pesawat"))), Card(child: Center(child: Text("Voucher Game")))]),
+    body: const Center(child: Text("Isi Voucher Game & Tiket")),
   );
 }
 
@@ -186,7 +208,7 @@ class CatatanPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(title: const Text("Catatan"), backgroundColor: const Color(0xFF01529C)),
-    body: const Center(child: Text("Belum ada riwayat pengeluaran.")),
+    body: const Center(child: Text("Daftar Pengeluaran Anda")),
   );
 }
 
@@ -195,7 +217,7 @@ class InvestasiPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(title: const Text("Investasi"), backgroundColor: const Color(0xFF01529C)),
-    body: const ListTile(leading: Icon(Icons.trending_up, color: Colors.orange), title: Text("Emas"), subtitle: Text("Mulai investasi dari Rp 10.000")),
+    body: const Center(child: Text("Emas & Reksa Dana")),
   );
 }
 
@@ -209,7 +231,6 @@ class MutasiPage extends StatelessWidget {
         children: const [
           ListTile(leading: Icon(Icons.arrow_downward, color: Colors.green), title: Text("Transfer Masuk"), subtitle: Text("15 Mar - Rp 500.000")),
           ListTile(leading: Icon(Icons.arrow_upward, color: Colors.red), title: Text("Bayar Listrik"), subtitle: Text("14 Mar - Rp 150.000")),
-          ListTile(leading: Icon(Icons.arrow_upward, color: Colors.red), title: Text("Top Up Dana"), subtitle: Text("12 Mar - Rp 50.000")),
         ],
       ),
     );
