@@ -124,8 +124,9 @@ class BriMoHome extends StatelessWidget {
   Widget _menuItem(BuildContext context, IconData icon, String label, Color color) {
     return InkWell(
       onTap: () {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Membuka $label..."), backgroundColor: Colors.blue),
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => DetailPage(title: label, icon: icon)),
         );
       },
       child: Column(
@@ -142,6 +143,39 @@ class BriMoHome extends StatelessWidget {
           const SizedBox(height: 5),
           Text(label, style: const TextStyle(fontSize: 11)),
         ],
+      ),
+    );
+  }
+}
+
+class DetailPage extends StatelessWidget {
+  final String title;
+  final IconData icon;
+
+  const DetailPage({super.key, required this.title, required this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title),
+        backgroundColor: const Color(0xFF01529C),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, size: 100, color: Colors.blue),
+            const SizedBox(height: 20),
+            Text("Selamat datang di halaman $title", 
+                 style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            const Padding(
+              padding: EdgeInsets.all(20.0),
+              child: Text("Halaman ini sedang dalam tahap pengembangan sistem perbankan.", 
+                   textAlign: TextAlign.center, style: TextStyle(color: Colors.grey)),
+            ),
+          ],
+        ),
       ),
     );
   }
