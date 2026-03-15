@@ -43,7 +43,6 @@ class _BriMoHomeState extends State<BriMoHome> {
                     ],
                   ),
                   const SizedBox(height: 20),
-                  // KARTU SALDO
                   Container(
                     padding: const EdgeInsets.all(15),
                     decoration: BoxDecoration(color: const Color(0xFF003D75), borderRadius: BorderRadius.circular(12)),
@@ -61,7 +60,7 @@ class _BriMoHomeState extends State<BriMoHome> {
               ),
             ),
 
-            // --- GRID MENU (Navigasi ke halaman yang berbeda-beda) ---
+            // --- GRID MENU ---
             Padding(
               padding: const EdgeInsets.all(10),
               child: GridView.count(
@@ -72,11 +71,11 @@ class _BriMoHomeState extends State<BriMoHome> {
                   _menuItem(context, Icons.account_balance_wallet, "Top Up", Colors.green, TopUpPage()),
                   _menuItem(context, Icons.receipt_long, "Tagihan", Colors.teal, TagihanPage()),
                   _menuItem(context, Icons.qr_code_scanner, "QRIS", Colors.blue, QrisPage()),
-                  _menuItem(context, Icons.atm, "Setor Tarik", Colors.blue, ComingSoonPage(title: "Setor Tarik")),
-                  _menuItem(context, Icons.shopping_bag, "Lifestyle", Colors.pink, ComingSoonPage(title: "Lifestyle")),
-                  _menuItem(context, Icons.credit_card, "Debit", Colors.blue, ComingSoonPage(title: "Debit")),
-                  _menuItem(context, Icons.menu_book, "Catatan", Colors.orange, ComingSoonPage(title: "Catatan")),
-                  _menuItem(context, Icons.trending_up, "Investasi", Colors.orange, ComingSoonPage(title: "Investasi")),
+                  _menuItem(context, Icons.atm, "Setor Tarik", Colors.blue, SetorTarikPage()),
+                  _menuItem(context, Icons.shopping_bag, "Lifestyle", Colors.pink, LifestylePage()),
+                  _menuItem(context, Icons.credit_card, "Debit", Colors.blue, DebitPage()),
+                  _menuItem(context, Icons.menu_book, "Catatan", Colors.orange, CatatanPage()),
+                  _menuItem(context, Icons.trending_up, "Investasi", Colors.orange, InvestasiPage()),
                 ],
               ),
             ),
@@ -116,86 +115,87 @@ class _BriMoHomeState extends State<BriMoHome> {
   }
 }
 
-// ================= HALAMAN 1: TOP UP (KHUSUS) =================
+// --- 1. TOP UP ---
 class TopUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Top Up"), backgroundColor: const Color(0xFF01529C)),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text("Pilih Nominal Top Up", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-            const SizedBox(height: 20),
-            Wrap(
-              spacing: 10, runSpacing: 10,
-              children: ["50.000", "100.000", "200.000", "500.000"].map((val) => 
-                Container(
-                  width: 150, padding: const EdgeInsets.all(15),
-                  decoration: BoxDecoration(border: Border.all(color: Colors.blue), borderRadius: BorderRadius.circular(10)),
-                  child: Text("Rp $val", textAlign: TextAlign.center, style: const TextStyle(color: Colors.blue, fontWeight: FontWeight.bold)),
-                )).toList(),
-            ),
-            const SizedBox(height: 30),
-            const Text("Nomor Handphone", style: TextStyle(fontWeight: FontWeight.bold)),
-            const TextField(decoration: InputDecoration(hintText: "Contoh: 0812xxxx")),
-          ],
-        ),
-      ),
+      body: Center(child: Text("Pilih E-Wallet: GoPay, OVO, Dana, LinkAja")),
     );
   }
 }
 
-// ================= HALAMAN 2: TAGIHAN (KHUSUS) =================
+// --- 2. TAGIHAN ---
 class TagihanPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Daftar Tagihan"), backgroundColor: const Color(0xFF01529C)),
-      body: ListView(
-        children: const [
-          ListTile(leading: Icon(Icons.flash_on, color: Colors.orange), title: Text("Listrik PLN"), subtitle: Text("ID Pelanggan: 5321xxxx")),
-          ListTile(leading: Icon(Icons.water_drop, color: Colors.blue), title: Text("PDAM"), subtitle: Text("Tagihan belum tersedia")),
-          ListTile(leading: Icon(Icons.tv, color: Colors.red), title: Text("TV Kabel & Internet"), subtitle: Text("Sudah dibayar")),
-        ],
-      ),
+      appBar: AppBar(title: const Text("Tagihan"), backgroundColor: const Color(0xFF01529C)),
+      body: ListView(children: const [ListTile(leading: Icon(Icons.flash_on), title: Text("PLN Pascabayar"))]),
     );
   }
 }
 
-// ================= HALAMAN 3: QRIS (KHUSUS) =================
+// --- 3. QRIS ---
 class QrisPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    return Scaffold(backgroundColor: Colors.black, body: Center(child: Icon(Icons.qr_code_scanner, color: Colors.white, size: 100)));
+  }
+}
+
+// --- 4. SETOR TARIK ---
+class SetorTarikPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(title: const Text("Scan QRIS"), backgroundColor: Colors.transparent),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(width: 250, height: 250, decoration: BoxDecoration(border: Border.all(color: Colors.white, width: 2), borderRadius: BorderRadius.circular(20)),
-              child: const Icon(Icons.qr_code_scanner, color: Colors.white, size: 100)),
-            const SizedBox(height: 20),
-            const Text("Arahkan kamera ke kode QRIS", style: TextStyle(color: Colors.white)),
-          ],
-        ),
-      ),
+      appBar: AppBar(title: const Text("Setor Tarik"), backgroundColor: const Color(0xFF01529C)),
+      body: Column(children: const [ListTile(leading: Icon(Icons.atm), title: Text("Tarik Tunai"), subtitle: Text("Tanpa Kartu"))]),
     );
   }
 }
 
-// ================= HALAMAN UMUM (COMING SOON) =================
-class ComingSoonPage extends StatelessWidget {
-  final String title;
-  ComingSoonPage({required this.title});
+// --- 5. LIFESTYLE ---
+class LifestylePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(title), backgroundColor: const Color(0xFF01529C)),
-      body: Center(child: Text("Fitur $title akan segera hadir!")),
+      appBar: AppBar(title: const Text("Lifestyle"), backgroundColor: const Color(0xFF01529C)),
+      body: GridView.count(crossAxisCount: 2, children: const [Card(child: Center(child: Text("Tiket Pesawat"))), Card(child: Center(child: Text("Voucher Game")))]),
+    );
+  }
+}
+
+// --- 6. DEBIT ---
+class DebitPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Kartu Debit"), backgroundColor: const Color(0xFF01529C)),
+      body: Center(child: Container(width: 300, height: 180, decoration: BoxDecoration(color: Colors.blue[900], borderRadius: BorderRadius.circular(15)), child: const Center(child: Text("GPN DEBIT", style: TextStyle(color: Colors.white))))),
+    );
+  }
+}
+
+// --- 7. CATATAN ---
+class CatatanPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Catatan Keuangan"), backgroundColor: const Color(0xFF01529C)),
+      body: const Center(child: Text("Belum ada riwayat pengeluaran.")),
+    );
+  }
+}
+
+// --- 8. INVESTASI ---
+class InvestasiPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Investasi"), backgroundColor: const Color(0xFF01529C)),
+      body: const ListTile(leading: Icon(Icons.trending_up, color: Colors.orange), title: Text("Emas"), subtitle: Text("Mulai investasi dari Rp 10.000")),
     );
   }
 }
