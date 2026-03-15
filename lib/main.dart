@@ -11,7 +11,7 @@ class BriMoHome extends StatefulWidget {
 }
 
 class _BriMoHomeState extends State<BriMoHome> {
-  int _currentIndex = 0; // Untuk navigasi menu bawah
+  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +38,14 @@ class _BriMoHomeState extends State<BriMoHome> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: const [
-                          Text("Hai, Imroatun Aina", 
-                            style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
-                          Text("UTS Mobile Programming", 
-                            style: TextStyle(color: Colors.white70, fontSize: 12)),
+                          Text(
+                            "Hai, Imroatun Aina", 
+                            style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            "NPM: 20241220036", 
+                            style: TextStyle(color: Colors.white70, fontSize: 12),
+                          ),
                         ],
                       ),
                       Row(
@@ -54,7 +58,6 @@ class _BriMoHomeState extends State<BriMoHome> {
                     ],
                   ),
                   const SizedBox(height: 20),
-                  // KARTU SALDO
                   Container(
                     padding: const EdgeInsets.all(15),
                     decoration: BoxDecoration(
@@ -73,7 +76,7 @@ class _BriMoHomeState extends State<BriMoHome> {
                         const SizedBox(height: 5),
                         const Align(
                           alignment: Alignment.centerLeft,
-                          child: Text("Rp ••••••••", style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold)),
+                          child: Text("Rp •••••••", style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold)),
                         ),
                         const Divider(color: Colors.white24, height: 20),
                         Row(
@@ -95,7 +98,7 @@ class _BriMoHomeState extends State<BriMoHome> {
               padding: const EdgeInsets.all(20),
               child: TextField(
                 decoration: InputDecoration(
-                  hintText: "Cari Fitur (Transfer, BRIVA, dll)",
+                  hintText: "Cari Fitur...",
                   prefixIcon: const Icon(Icons.search, color: Colors.blue),
                   filled: true,
                   fillColor: Colors.grey[100],
@@ -103,7 +106,6 @@ class _BriMoHomeState extends State<BriMoHome> {
                     borderRadius: BorderRadius.circular(30),
                     borderSide: BorderSide.none,
                   ),
-                  contentPadding: const EdgeInsets.symmetric(vertical: 0),
                 ),
               ),
             ),
@@ -116,31 +118,28 @@ class _BriMoHomeState extends State<BriMoHome> {
                 physics: const NeverScrollableScrollPhysics(),
                 crossAxisCount: 4,
                 children: [
-                  _menuItem(context, Icons.account_balance_wallet, "Top Up", Colors.green),
-                  _menuItem(context, Icons.receipt_long, "Tagihan", Colors.teal),
-                  _menuItem(context, Icons.atm, "Setor Tarik", Colors.blue),
-                  _menuItem(context, Icons.shopping_bag, "Lifestyle", Colors.pink),
-                  _menuItem(context, Icons.qr_code_scanner, "QRIS", Colors.blue),
-                  _menuItem(context, Icons.credit_card, "Debit", Colors.blue),
-                  _menuItem(context, Icons.menu_book, "Catatan", Colors.orange),
-                  _menuItem(context, Icons.trending_up, "Investasi", Colors.orange),
+                  _menuItem(context, Icons.account_balance_wallet, "Top Up", Colors.green, "Menu Top Up"),
+                  _menuItem(context, Icons.receipt_long, "Tagihan", Colors.teal, "Menu Tagihan"),
+                  _menuItem(context, Icons.atm, "Setor Tarik", Colors.blue, "Menu Setor Tarik"),
+                  _menuItem(context, Icons.shopping_bag, "Lifestyle", Colors.pink, "Menu Lifestyle"),
+                  _menuItem(context, Icons.qr_code_scanner, "QRIS", Colors.blue, "Menu QRIS"),
+                  _menuItem(context, Icons.credit_card, "Debit", Colors.blue, "Menu Debit"),
+                  _menuItem(context, Icons.menu_book, "Catatan", Colors.orange, "Menu Catatan"),
+                  _menuItem(context, Icons.trending_up, "Investasi", Colors.orange, "Menu Investasi"),
                 ],
               ),
             ),
             
-            // IDENTITAS UTS (Tambahan agar tidak dikira copas)
             const Padding(
-              padding: EdgeInsets.symmetric(vertical: 30),
+              padding: EdgeInsets.symmetric(vertical: 40),
               child: Text(
-                "Tugas UTS - Imroatun Aina\n2024 © Universitas Anda",
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.grey, fontSize: 12),
+                "Aplikasi UTS oleh Imroatun Aina",
+                style: TextStyle(color: Colors.grey, fontSize: 11),
               ),
             ),
           ],
         ),
       ),
-      // --- MENU BAWAH (Bottom Navigation) ---
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         type: BottomNavigationBarType.fixed,
@@ -158,10 +157,10 @@ class _BriMoHomeState extends State<BriMoHome> {
     );
   }
 
-  Widget _menuItem(BuildContext context, IconData icon, String label, Color color) {
+  Widget _menuItem(BuildContext context, IconData icon, String label, Color color, String info) {
     return InkWell(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(title: label, icon: icon)));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(title: label, icon: icon, detail: info)));
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -185,7 +184,8 @@ class _BriMoHomeState extends State<BriMoHome> {
 class DetailPage extends StatelessWidget {
   final String title;
   final IconData icon;
-  const DetailPage({required this.title, required this.icon});
+  final String detail;
+  const DetailPage({required this.title, required this.icon, required this.detail});
 
   @override
   Widget build(BuildContext context) {
@@ -197,7 +197,7 @@ class DetailPage extends StatelessWidget {
           children: [
             Icon(icon, size: 100, color: Colors.blue),
             const SizedBox(height: 20),
-            Text("Fitur $title segera hadir", style: const TextStyle(fontSize: 18, color: Colors.grey)),
+            Text(detail, style: const TextStyle(fontSize: 18)),
           ],
         ),
       ),
