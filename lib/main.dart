@@ -49,7 +49,6 @@ class HomeContent extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          // HEADER BIRU MELENGKUNG (Seperti Gambar 1)
           Stack(
             children: [
               Container(
@@ -80,13 +79,12 @@ class HomeContent extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 20),
-                    // KOTAK SALDO & MENU CEPAT
                     Container(
                       padding: const EdgeInsets.all(15),
                       decoration: BoxDecoration(
                         color: const Color(0xFF003D75),
                         borderRadius: BorderRadius.circular(15),
-                        boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 10)],
+                        boxShadow: [const BoxShadow(color: Colors.black26, blurRadius: 10)],
                       ),
                       child: Column(
                         children: [
@@ -102,14 +100,14 @@ class HomeContent extends StatelessWidget {
                             child: Text("Rp ••••••••", style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold))
                           ),
                           const Divider(color: Colors.white24, height: 25),
-                          // MENU CEPAT (Transfer, BRIVA, dll)
+                          // SEKARANG MENU INI BISA DIKLIK
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              _quickMenu(Icons.swap_horiz, "Transfer"),
-                              _quickMenu(Icons.qr_code_2, "BRIVA"),
-                              _quickMenu(Icons.account_balance_wallet, "E-Wallet"),
-                              _quickMenu(Icons.phone_android, "Pulsa/Data"),
+                              _quickMenu(context, Icons.swap_horiz, "Transfer", const TransferPage()),
+                              _quickMenu(context, Icons.qr_code_2, "BRIVA", const BrivaPage()),
+                              _quickMenu(context, Icons.account_balance_wallet, "E-Wallet", const EWalletPage()),
+                              _quickMenu(context, Icons.phone_android, "Pulsa/Data", const PulsaPage()),
                             ],
                           )
                         ],
@@ -121,7 +119,6 @@ class HomeContent extends StatelessWidget {
             ],
           ),
           
-          // SEARCH BAR (Seperti Gambar 1)
           Padding(
             padding: const EdgeInsets.all(20),
             child: TextField(
@@ -136,7 +133,6 @@ class HomeContent extends StatelessWidget {
             ),
           ),
 
-          // GRID MENU UTAMA
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: GridView.count(
@@ -160,13 +156,17 @@ class HomeContent extends StatelessWidget {
     );
   }
 
-  Widget _quickMenu(IconData icon, String label) {
-    return Column(
-      children: [
-        Icon(icon, color: Colors.white, size: 28),
-        const SizedBox(height: 5),
-        Text(label, style: const TextStyle(color: Colors.white, fontSize: 10)),
-      ],
+  // FUNGSI QUICK MENU YANG SUDAH DIBERI NAVIGASI
+  Widget _quickMenu(BuildContext context, IconData icon, String label, Widget destination) {
+    return InkWell(
+      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => destination)),
+      child: Column(
+        children: [
+          Icon(icon, color: Colors.white, size: 28),
+          const SizedBox(height: 5),
+          Text(label, style: const TextStyle(color: Colors.white, fontSize: 10)),
+        ],
+      ),
     );
   }
 
@@ -189,8 +189,7 @@ class HomeContent extends StatelessWidget {
   }
 }
 
-// Halaman lainnya (Mutasi, Aktivitas, Akun, dll) tetap sama seperti kode sebelumnya...
-// [Tambahkan class AkunPage, AktivitasPage, MutasiPage, dan Fitur lainnya di sini]
+// --- HALAMAN-HALAMAN TUJUAN ---
 class AkunPage extends StatelessWidget {
   const AkunPage({super.key});
   @override
@@ -224,6 +223,13 @@ class MutasiPage extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(appBar: AppBar(title: const Text("Mutasi"), backgroundColor: const Color(0xFF01529C)), body: const Center(child: Text("Riwayat Transaksi Kosong")));
 }
 
+// Fitur Quick Menu
+class TransferPage extends StatelessWidget { const TransferPage({super.key}); @override Widget build(BuildContext context) => Scaffold(appBar: AppBar(title: const Text("Transfer")), body: const Center(child: Text("Halaman Transfer"))); }
+class BrivaPage extends StatelessWidget { const BrivaPage({super.key}); @override Widget build(BuildContext context) => Scaffold(appBar: AppBar(title: const Text("BRIVA")), body: const Center(child: Text("Halaman BRIVA"))); }
+class EWalletPage extends StatelessWidget { const EWalletPage({super.key}); @override Widget build(BuildContext context) => Scaffold(appBar: AppBar(title: const Text("E-Wallet")), body: const Center(child: Text("Halaman E-Wallet"))); }
+class PulsaPage extends StatelessWidget { const PulsaPage({super.key}); @override Widget build(BuildContext context) => Scaffold(appBar: AppBar(title: const Text("Pulsa/Data")), body: const Center(child: Text("Halaman Pulsa/Data"))); }
+
+// Fitur Grid Menu
 class TopUpPage extends StatelessWidget { const TopUpPage({super.key}); @override Widget build(BuildContext context) => Scaffold(appBar: AppBar(title: const Text("Top Up")), body: const Center(child: Text("Halaman Top Up"))); }
 class TagihanPage extends StatelessWidget { const TagihanPage({super.key}); @override Widget build(BuildContext context) => Scaffold(appBar: AppBar(title: const Text("Tagihan")), body: const Center(child: Text("Halaman Tagihan"))); }
 class QrisPage extends StatelessWidget { const QrisPage({super.key}); @override Widget build(BuildContext context) => Scaffold(appBar: AppBar(title: const Text("QRIS")), body: const Center(child: Text("Scan QRIS"))); }
