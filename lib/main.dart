@@ -52,7 +52,7 @@ class HomeContent extends StatelessWidget {
           Stack(
             children: [
               Container(
-                height: 220,
+                height: 230,
                 decoration: const BoxDecoration(
                   color: Color(0xFF01529C),
                   borderRadius: BorderRadius.only(
@@ -62,8 +62,9 @@ class HomeContent extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(20, 50, 20, 0),
+                padding: const EdgeInsets.fromLTRB(20, 40, 20, 0),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -71,11 +72,21 @@ class HomeContent extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: const [
-                            Text("Hai, Imroatun Aina", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
-                            Text("NPM: 20241220036", style: TextStyle(color: Colors.white70, fontSize: 12)),
+                            Text(
+                              "BRImo",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 28,
+                                fontWeight: FontWeight.w900,
+                                fontStyle: FontStyle.italic,
+                              ),
+                            ),
+                            SizedBox(height: 8),
+                            Text("Hai, Imroatun Aina", style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+                            Text("NPM: 20241220036", style: TextStyle(color: Colors.white70, fontSize: 11)),
                           ],
                         ),
-                        const Icon(Icons.notifications_none, color: Colors.white),
+                        const Icon(Icons.notifications_none, color: Colors.white, size: 28),
                       ],
                     ),
                     const SizedBox(height: 20),
@@ -84,7 +95,6 @@ class HomeContent extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: const Color(0xFF003D75),
                         borderRadius: BorderRadius.circular(15),
-                        boxShadow: [const BoxShadow(color: Colors.black26, blurRadius: 10)],
                       ),
                       child: Column(
                         children: [
@@ -99,14 +109,14 @@ class HomeContent extends StatelessWidget {
                             alignment: Alignment.centerLeft, 
                             child: Text("Rp ••••••••", style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold))
                           ),
-                          const Divider(color: Colors.white24, height: 25),
+                          const Divider(color: Colors.white24, height: 20),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              _quickMenu(context, Icons.swap_horiz, "Transfer", const TransferPage()),
-                              _quickMenu(context, Icons.qr_code_2, "BRIVA", const BrivaPage()),
-                              _quickMenu(context, Icons.account_balance_wallet, "E-Wallet", const EWalletPage()),
-                              _quickMenu(context, Icons.phone_android, "Pulsa/Data", const PulsaPage()),
+                              _quickIcon(Icons.swap_horiz, "Transfer"),
+                              _quickIcon(Icons.qr_code_2, "BRIVA"),
+                              _quickIcon(Icons.account_balance_wallet, "E-Wallet"),
+                              _quickIcon(Icons.phone_android, "Pulsa/Data"),
                             ],
                           )
                         ],
@@ -117,191 +127,78 @@ class HomeContent extends StatelessWidget {
               ),
             ],
           ),
-          
           Padding(
             padding: const EdgeInsets.all(20),
             child: TextField(
               decoration: InputDecoration(
                 hintText: "Cari Fitur",
                 prefixIcon: const Icon(Icons.search),
-                contentPadding: const EdgeInsets.symmetric(vertical: 0),
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(25), borderSide: BorderSide.none),
                 fillColor: Colors.grey[200],
                 filled: true,
               ),
             ),
           ),
-
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: GridView.count(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              crossAxisCount: 4,
-              children: [
-                _buildMenu(context, Icons.account_balance_wallet, "Top Up", Colors.green, const TopUpPage(), hasBadge: true),
-                _buildMenu(context, Icons.receipt_long, "Tagihan", Colors.teal, const TagihanPage(), hasBadge: true),
-                _buildMenu(context, Icons.qr_code_scanner, "QRIS", Colors.blue, const QrisPage(), hasBadge: true),
-                _buildMenu(context, Icons.atm, "Setor Tarik", Colors.blue, const SetorTarikPage()),
-                _buildMenu(context, Icons.shopping_bag, "Lifestyle", Colors.pink, const LifestylePage(), hasBadge: true),
-                _buildMenu(context, Icons.credit_card, "Debit", Colors.blue, const DebitPage(), hasBadge: true),
-                _buildMenu(context, Icons.menu_book, "Catatan", Colors.orange, const CatatanPage()),
-                _buildMenu(context, Icons.trending_up, "Investasi", Colors.orange, const InvestasiPage(), hasBadge: true),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _quickMenu(BuildContext context, IconData icon, String label, Widget destination) {
-    return InkWell(
-      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => destination)),
-      child: Column(
-        children: [
-          Icon(icon, color: Colors.white, size: 28),
-          const SizedBox(height: 5),
-          Text(label, style: const TextStyle(color: Colors.white, fontSize: 10)),
-        ],
-      ),
-    );
-  }
-
-  // FUNGSI MENU DENGAN WARNA MENCOLOK DAN BADGE MERAH
-  Widget _buildMenu(BuildContext context, IconData icon, String label, Color color, Widget destination, {bool hasBadge = false}) {
-    return InkWell(
-      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => destination)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Stack(
+          GridView.count(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisCount: 4,
             children: [
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: color.withOpacity(0.2), // Background lebih terang
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Icon(icon, color: color, size: 28),
-              ),
-              if (hasBadge)
-                Positioned(
-                  right: 0,
-                  top: 0,
-                  child: Container(
-                    padding: const EdgeInsets.all(4),
-                    decoration: const BoxDecoration(color: Colors.red, shape: BoxShape.circle),
-                    constraints: const BoxConstraints(minWidth: 8, minHeight: 8),
-                  ),
-                ),
+              _menuIcon(Icons.account_balance_wallet, "Top Up", Colors.green, hasBadge: true),
+              _menuIcon(Icons.receipt_long, "Tagihan", Colors.teal, hasBadge: true),
+              _menuIcon(Icons.qr_code_scanner, "QRIS", Colors.blue, hasBadge: true),
+              _menuIcon(Icons.atm, "Setor Tarik", Colors.blue),
+              _menuIcon(Icons.shopping_bag, "Lifestyle", Colors.pink, hasBadge: true),
+              _menuIcon(Icons.credit_card, "Debit", Colors.blue, hasBadge: true),
+              _menuIcon(Icons.menu_book, "Catatan", Colors.orange),
+              _menuIcon(Icons.trending_up, "Investasi", Colors.orange, hasBadge: true),
             ],
           ),
-          const SizedBox(height: 8),
-          Text(label, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500), textAlign: TextAlign.center),
         ],
       ),
     );
   }
-}
 
-// --- HALAMAN DETAIL ---
-
-class TransferPage extends StatelessWidget {
-  const TransferPage({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Transfer"), backgroundColor: const Color(0xFF01529C)),
-      body: ListView(
-        children: const [
-          ListTile(leading: CircleAvatar(child: Text("B")), title: Text("Bank BRI"), subtitle: Text("Transfer sesama BRI")),
-          ListTile(leading: CircleAvatar(backgroundColor: Colors.orange, child: Text("M")), title: Text("Bank Mandiri"), subtitle: Text("Transfer antar bank")),
-          ListTile(leading: CircleAvatar(backgroundColor: Colors.blue, child: Text("B")), title: Text("Bank BCA"), subtitle: Text("Transfer antar bank")),
-        ],
-      ),
+  Widget _quickIcon(IconData icon, String label) {
+    return Column(
+      children: [
+        Icon(icon, color: Colors.white, size: 26),
+        Text(label, style: const TextStyle(color: Colors.white, fontSize: 10)),
+      ],
     );
   }
-}
 
-class BrivaPage extends StatelessWidget {
-  const BrivaPage({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("BRIVA"), backgroundColor: const Color(0xFF01529C)),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
+  Widget _menuIcon(IconData icon, String label, Color color, {bool hasBadge = false}) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Stack(
           children: [
-            TextField(decoration: InputDecoration(labelText: "Nomor Virtual Account", border: OutlineInputBorder())),
-            const SizedBox(height: 20),
-            ElevatedButton(onPressed: () {}, child: const Text("Lanjutkan"), style: ElevatedButton.styleFrom(minimumSize: const Size(double.infinity, 50))),
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(color: color.withOpacity(0.1), borderRadius: BorderRadius.circular(12)),
+              child: Icon(icon, color: color, size: 28),
+            ),
+            if (hasBadge)
+              Positioned(
+                right: 0,
+                top: 0,
+                child: Container(
+                  width: 10,
+                  height: 10,
+                  decoration: const BoxDecoration(color: Colors.red, shape: BoxShape.circle),
+                ),
+              ),
           ],
         ),
-      ),
+        const SizedBox(height: 4),
+        Text(label, style: const TextStyle(fontSize: 11), textAlign: TextAlign.center),
+      ],
     );
   }
 }
 
-class PulsaPage extends StatelessWidget {
-  const PulsaPage({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Pulsa/Data"), backgroundColor: const Color(0xFF01529C)),
-      body: GridView.count(
-        padding: const EdgeInsets.all(15),
-        crossAxisCount: 2,
-        childAspectRatio: 2,
-        children: const [
-          Card(child: Center(child: Text("Pulsa 10rb\nRp 11.500", textAlign: TextAlign.center))),
-          Card(child: Center(child: Text("Pulsa 20rb\nRp 21.500", textAlign: TextAlign.center))),
-        ],
-      ),
-    );
-  }
-}
-
-class AkunPage extends StatelessWidget {
-  const AkunPage({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Profil Akun"), backgroundColor: const Color(0xFF01529C)),
-      body: Column(
-        children: [
-          const SizedBox(height: 30),
-          const Center(child: CircleAvatar(radius: 50, child: Icon(Icons.person, size: 50))),
-          const SizedBox(height: 10),
-          const Text("Imroatun Aina", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          const Text("NPM: 20241220036"),
-          const Divider(height: 50),
-          const ListTile(leading: Icon(Icons.logout, color: Colors.red), title: Text("Keluar", style: TextStyle(color: Colors.red))),
-        ],
-      ),
-    );
-  }
-}
-
-class MutasiPage extends StatelessWidget {
-  const MutasiPage({super.key});
-  @override
-  Widget build(BuildContext context) => Scaffold(appBar: AppBar(title: const Text("Mutasi")), body: const Center(child: Text("Riwayat Kosong")));
-}
-
-class AktivitasPage extends StatelessWidget {
-  const AktivitasPage({super.key});
-  @override
-  Widget build(BuildContext context) => Scaffold(appBar: AppBar(title: const Text("Aktivitas")), body: const Center(child: Text("Belum ada aktivitas")));
-}
-
-class EWalletPage extends StatelessWidget { const EWalletPage({super.key}); @override Widget build(BuildContext context) => Scaffold(appBar: AppBar(title: const Text("E-Wallet")), body: const Center(child: Text("GoPay, OVO, DANA"))); }
-class TopUpPage extends StatelessWidget { const TopUpPage({super.key}); @override Widget build(BuildContext context) => Scaffold(appBar: AppBar(title: const Text("Top Up")), body: const Center(child: Text("Halaman Top Up"))); }
-class TagihanPage extends StatelessWidget { const TagihanPage({super.key}); @override Widget build(BuildContext context) => Scaffold(appBar: AppBar(title: const Text("Tagihan")), body: const Center(child: Text("Halaman Tagihan"))); }
-class QrisPage extends StatelessWidget { const QrisPage({super.key}); @override Widget build(BuildContext context) => Scaffold(appBar: AppBar(title: const Text("QRIS")), body: const Center(child: Icon(Icons.qr_code_scanner, size: 100))); }
-class SetorTarikPage extends StatelessWidget { const SetorTarikPage({super.key}); @override Widget build(BuildContext context) => Scaffold(appBar: AppBar(title: const Text("Setor Tarik")), body: const Center(child: Text("Halaman Setor Tarik"))); }
-class LifestylePage extends StatelessWidget { const LifestylePage({super.key}); @override Widget build(BuildContext context) => Scaffold(appBar: AppBar(title: const Text("Lifestyle")), body: const Center(child: Text("Halaman Lifestyle"))); }
-class DebitPage extends StatelessWidget { const DebitPage({super.key}); @override Widget build(BuildContext context) => Scaffold(appBar: AppBar(title: const Text("Debit")), body: const Center(child: Text("Halaman Debit"))); }
-class CatatanPage extends StatelessWidget { const CatatanPage({super.key}); @override Widget build(BuildContext context) => Scaffold(appBar: AppBar(title: const Text("Catatan")), body: const Center(child: Text("Halaman Catatan"))); }
-class InvestasiPage extends StatelessWidget { const InvestasiPage({super.key}); @override Widget build(BuildContext context) => Scaffold(appBar: AppBar(title: const Text("Investasi")), body: const Center(child: Text("Halaman Investasi"))); }
+// Halaman Dummy agar tidak eror saat diklik
+class MutasiPage extends StatelessWidget { const MutasiPage({super.key}); @override Widget build(BuildContext context) => Scaffold(appBar: AppBar(title: const Text("Mutasi"))); }
+class AktivitasPage extends StatelessWidget { const AktivitasPage({super.key}); @override Widget build(BuildContext context) => Scaffold(appBar: AppBar(title: const Text("Aktivitas"))); }
+class AkunPage extends StatelessWidget { const AkunPage({super.key}); @override Widget build(BuildContext context) => Scaffold(appBar: AppBar(title: const Text("Akun"))); }
